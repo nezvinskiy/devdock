@@ -20,7 +20,7 @@ services:
             - "3306:3306"
         container_name: mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=1234567890
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
             - ./mysql:/var/lib/mysql
     php:
@@ -42,3 +42,5 @@ services:
         volumes:
             - ./nginx/www:/var/www
         working_dir: /var/www
+        #command: composer create-project --prefer-dist yiisoft/yii2-app-basic basic.loc
+        #command: composer create-project --prefer-dist yiisoft/yii2-app-advanced advanced.loc
