@@ -20,7 +20,7 @@ services:
             - "3306:3306"
         container_name: mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=9604904
+            - MYSQL_ROOT_PASSWORD=1234567890
         volumes:
             - ./mysql:/var/lib/mysql
     php:
