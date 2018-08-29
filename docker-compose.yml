@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+            - "8080:80"
+            - "8443:443"
+        volumes:
+            - ./nginx/conf:/etc/nginx/conf.d
+            - ./nginx/www:/var/www/
+            - ./nginx/log:/var/log/nginx/
+            - ./nginx/html:/usr/share/nginx/html/
+        links:
+            - php
+    mysql:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        container_name: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=9604904
+        volumes:
+            - ./mysql:/var/lib/mysql
+    php:
+        build: ./php
+        container_name: php-fpm
+        volumes:
+            - ./nginx/www:/var/www
+        links:
+            - mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - "8306:80"
+        links:
+            - mysql:db
+    composer:
+        image: composer:latest
+        volumes:
+            - ./nginx/www:/var/www
+        working_dir: /var/www
