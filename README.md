@@ -1,10 +1,14 @@
 # Devdock
 Docker for development
 
+## Setup
+
+    cp .env-dist .env
+
 ## Building
 
     docker-compose build
-    
+
 ## Running
 
     docker-compose up
