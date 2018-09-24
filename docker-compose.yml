@@ -9,7 +9,7 @@ services:
             - "8443:443"
         volumes:
             - ./nginx/conf:/etc/nginx/conf.d
-            - ./nginx/www:/var/www/
+            - ${APP_CODE_PATH_HOST}:/var/www/
             - ./nginx/log:/var/log/nginx/
             - ./nginx/html:/usr/share/nginx/html/
         links:
@@ -27,7 +27,7 @@ services:
         build: ./php
         container_name: php-fpm
         volumes:
-            - ./nginx/www:/var/www
+            - ${APP_CODE_PATH_HOST}:/var/www
         links:
             - mysql
     phpmyadmin:
@@ -40,7 +40,7 @@ services:
     composer:
         image: composer:latest
         volumes:
-            - ./nginx/www:/var/www
+            - ${APP_CODE_PATH_HOST}:/var/www
         working_dir: /var/www
         #command: composer create-project --prefer-dist yiisoft/yii2-app-basic basic.loc
         #command: composer create-project --prefer-dist yiisoft/yii2-app-advanced advanced.loc
