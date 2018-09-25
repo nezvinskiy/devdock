@@ -41,6 +41,11 @@ services:
         image: composer:latest
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
-        working_dir: /var/www
-        #command: composer create-project --prefer-dist yiisoft/yii2-app-basic basic.loc
-        #command: composer create-project --prefer-dist yiisoft/yii2-app-advanced advanced.loc
+        #working_dir: /var/www/project1.loc
+        #command: composer install
+    node:
+        image: node:8
+        volumes:
+            - ${APP_CODE_PATH_HOST}:/var/www
+        #working_dir: /var/www/project1.loc
+        #command: bash -c "npm install --force && npm run prod"
