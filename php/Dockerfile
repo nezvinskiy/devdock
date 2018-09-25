@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         zlib1g-dev \
         g++ \
+        unzip \
     \
     && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
