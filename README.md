@@ -28,8 +28,11 @@ Docker for development
         - php
     - www
         - project1.loc
+            - public
         - project2.loc
+            - public
         - project3.loc
+            - public
         - ...
 
 ## Add the domains to the hosts files
