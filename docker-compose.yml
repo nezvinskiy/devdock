@@ -3,12 +3,13 @@ version: '3'
 services:
     nginx:
         image: nginx:latest
-        container_name: nginx
+        restart: always
         ports:
             - "8080:80"
             - "8443:443"
         volumes:
             - ./nginx/conf:/etc/nginx/conf.d
+            - ./nginx/ssl:/etc/nginx/ssl
             - ${APP_CODE_PATH_HOST}:/var/www/
             - ./nginx/log:/var/log/nginx/
             - ./nginx/html:/usr/share/nginx/html/
@@ -16,23 +17,24 @@ services:
             - php
     mysql:
         image: mysql:5.7
+        restart: always
         ports:
             - "1306:3306"
-        container_name: mysql
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
             - ./mysql:/var/lib/mysql
     php:
         build: ./php
-        container_name: php-fpm
+        restart: always
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
         links:
             - mysql
+        working_dir: ${PHP_WORKING_DIR}
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
+        restart: always
         ports:
             - "8306:80"
         links:
@@ -41,11 +43,21 @@ services:
         image: composer:latest
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
-        #working_dir: /var/www/project1.loc
+        working_dir: ${COMPOSER_WORKING_DIR}
         #command: composer install
     node:
         image: node:8
+        restart: always
+        ports:
+            - "4200:4200"
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
-        #working_dir: /var/www/project1.loc
+        working_dir: ${NODE_WORKING_DIR}
+        tty: true
         #command: bash -c "npm install --force && npm run prod"
+    mailhog:
+        image: mailhog/mailhog:latest
+        restart: always
+        ports:
+            - "1025:1025"
+            - "8025:8025"

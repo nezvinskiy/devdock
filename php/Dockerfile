@@ -47,6 +47,11 @@ RUN pecl install xdebug \
 
 RUN docker-php-ext-install opcache
 
+RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
+    && chmod +x /usr/local/bin/mhsendmail
+
+RUN echo 'sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog:1025"' > /usr/local/etc/php/conf.d/mailhog.ini
+
 ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
 COPY xdebug.ini /usr/local/etc/php/conf.d/
