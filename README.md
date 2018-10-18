@@ -1,5 +1,12 @@
 # Devdock
 Docker for development
+    - nginx
+    - mysql
+    - php
+    - phpmyadmin
+    - composer
+    - nodejs/npm
+    - mailhog
 
 ## Setup
 
@@ -45,6 +52,10 @@ Docker for development
 ## phpMyAdmin. Open your browser and visit the localhost on port 8306
 
     http://localhost:8306/
+
+## Open your browser and visit the MailHog on port 8025
+
+    http://localhost:8025/
 
 ## Open your browser and visit the project1.loc on port 8080
 
