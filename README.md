@@ -1,12 +1,12 @@
 # Devdock
-Docker for development
-    - nginx
-    - mysql
-    - php
-    - phpmyadmin
-    - composer
-    - nodejs/npm
-    - mailhog
+Docker for development:
+- nginx
+- mysql
+- php
+- phpmyadmin
+- composer
+- nodejs/npm
+- mailhog
 
 ## Setup
 
