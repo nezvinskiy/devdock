@@ -67,3 +67,6 @@ Docker for development:
     https://project2.loc/
     https://project3.loc/
     ...
+
+## Open your browser and visit the ElasticSearch on port 9201
+    http://127.0.0.1:9201/
