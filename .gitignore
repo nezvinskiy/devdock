@@ -1,5 +1,7 @@
 /.idea
+/data
 /mysql
+/elasticsearch
 /nginx/log
 /nginx/www
 .env
