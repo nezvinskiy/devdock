@@ -57,9 +57,12 @@ Docker for development:
 
     http://localhost:8306/
 
-## Open your browser and visit the MailHog on port 8025
+## MailHog. Open your browser and visit the localhost on port 8025
 
     http://localhost:8025/
+
+## ElasticSearch. Open your browser and visit the localhost on port 9201
+    http://localhost:9201/
 
 ## Open your browser and visit the project1.loc and etc.
 
@@ -67,6 +70,3 @@ Docker for development:
     https://project2.loc/
     https://project3.loc/
     ...
-
-## Open your browser and visit the ElasticSearch on port 9201
-    http://127.0.0.1:9201/
