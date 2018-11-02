@@ -61,6 +61,9 @@ Docker for development:
 
     http://localhost:8025/
 
-## Open your browser and visit the project1.loc on port 8080
+## Open your browser and visit the project1.loc and etc.
 
-    http://project1.loc:8080/
+    https://project1.loc/
+    https://project2.loc/
+    https://project3.loc/
+    ...
