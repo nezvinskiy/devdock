@@ -7,6 +7,8 @@ Docker for development:
 - composer
 - nodejs/npm
 - mailhog
+- redis
+- elasticsearch
 
 ## Setup
 
@@ -28,10 +30,12 @@ Docker for development:
 
     - devdock
         - mysql
+        - elasticsearch
         - nginx
             - conf
             - html
             - log
+            - ssl
         - php
     - www
         - project1.loc
