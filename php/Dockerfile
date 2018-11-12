@@ -55,6 +55,9 @@ RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailho
 
 RUN echo 'sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog:1025"' > /usr/local/etc/php/conf.d/mailhog.ini
 
+RUN mkdir -p /usr/local/etc/php/extra/ \
+    && curl "http://browscap.org/stream?q=Full_PHP_BrowsCapINI" -o /usr/local/etc/php/extra/full_php_browscap.ini
+
 ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
 COPY xdebug.ini /usr/local/etc/php/conf.d/
