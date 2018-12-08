@@ -3,7 +3,7 @@ version: '3'
 services:
     nginx:
         image: nginx:latest
-        restart: always
+        #restart: always
         ports:
             - "80:80"
             - "443:443"
@@ -17,16 +17,16 @@ services:
             - php
     mysql:
         image: mysql:5.7
-        restart: always
+        #restart: always
         ports:
             - "1306:3306"
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
-            - ./mysql:/var/lib/mysql
+            - ${MYSQL_DATA_VOLUMES}:/var/lib/mysql
     php:
         build: ./php
-        restart: always
+        #restart: always
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
         links:
@@ -36,7 +36,7 @@ services:
         working_dir: ${PHP_WORKING_DIR}
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        restart: always
+        #restart: always
         ports:
             - "8306:80"
         links:
@@ -49,7 +49,7 @@ services:
         #command: composer install
     node:
         image: node:8
-        restart: always
+        #restart: always
         ports:
             - "4200:4200"
         volumes:
@@ -59,18 +59,18 @@ services:
         #command: bash -c "npm install --force && npm run prod"
     mailhog:
         image: mailhog/mailhog:latest
-        restart: always
+        #restart: always
         ports:
             - "1025:1025"
             - "8025:8025"
     redis:
         image: redis:3.0
-        restart: always
+        #restart: always
         ports:
             - "63791:6379"
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
-        restart: always
+        #restart: always
         environment:
             - cluster.name=docker-cluster
             - bootstrap.memory_lock=true
@@ -81,6 +81,6 @@ services:
                 soft: -1
                 hard: -1
         volumes:
-            - ./elasticsearch:/usr/share/elasticsearch/data
+            - ${ELASTICSEARCH_DATA_VOLUMES}:/usr/share/elasticsearch/data
         ports:
             - 9201:9200
