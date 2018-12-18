@@ -50,6 +50,8 @@ RUN docker-php-ext-install opcache
 
 RUN docker-php-ext-install pcntl
 
+RUN docker-php-ext-install bcmath
+
 RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
     && chmod +x /usr/local/bin/mhsendmail
 

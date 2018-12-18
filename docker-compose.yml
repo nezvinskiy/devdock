@@ -24,11 +24,14 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
             - ${MYSQL_DATA_VOLUMES}:/var/lib/mysql
+        command: --max_allowed_packet=256M
     php:
         build: ./php
         #restart: always
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
+        environment:
+            - SITE_ENVIRONMENT=dev
         links:
             - mysql
             - redis
