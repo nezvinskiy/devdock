@@ -3,6 +3,9 @@
 devdock-ps:
 	docker-compose ps
 
+devdock-view: memory
+	docker-compose up --build
+
 devdock-up: memory
 	docker-compose up -d
 

@@ -64,6 +64,16 @@ ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 
+# Install Composer
+ENV PATH="${PATH}:/root/.composer/vendor/bin"
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer global require laravel/envoy --no-progress --no-suggest \
+    && rm -rf /root/.composer/cache/* \
+    && composer --version
+
 WORKDIR /var/www
 
 CMD ["php-fpm"]
