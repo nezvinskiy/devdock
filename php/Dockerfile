@@ -52,6 +52,9 @@ RUN docker-php-ext-install pcntl
 
 RUN docker-php-ext-install bcmath
 
+RUN docker-php-ext-install xmlrpc
+RUN docker-php-ext-install xml
+
 RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
     && chmod +x /usr/local/bin/mhsendmail
 

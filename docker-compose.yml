@@ -55,6 +55,7 @@ services:
         #restart: always
         ports:
             - "4200:4200"
+            - "8000:8000"
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
         working_dir: ${NODE_WORKING_DIR}
@@ -70,7 +71,7 @@ services:
         image: redis:3.0
         #restart: always
         ports:
-            - "63791:6379"
+            - "6379:6379"
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
         #restart: always
