@@ -11,18 +11,23 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libxml2-dev \
+        libpq-dev \
         zlib1g-dev \
         g++ \
         unzip \
         mysql-client \
     \
     && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+RUN rm -rf /var/lib/apt/lists/* && apt update
+
 # ICU - intl requirements for Symfony
 # Debian is out of date, and Symfony expects the latest - so build from source, unless a better alternative exists(?)
-RUN curl -sS -o /tmp/icu.tar.gz -L http://download.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz \
+RUN curl -sS -o /tmp/icu.tar.gz -L http://download.icu-project.org/files/icu4c/64.2/icu4c-64_2-src.tgz \
     && tar -zxf /tmp/icu.tar.gz -C /tmp \
     && cd /tmp/icu/source \
     && ./configure --prefix=/usr/local \

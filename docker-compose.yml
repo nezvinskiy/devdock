@@ -25,6 +25,19 @@ services:
         volumes:
             - ${MYSQL_DATA_VOLUMES}:/var/lib/mysql
         command: --max_allowed_packet=256M
+    postgres:
+        image: postgres:9.2
+        #restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
+        volumes:
+            - ${POSTGRESQL_DATA_VOLUMES}:/var/lib/postgresql/data
+            - ${APP_CODE_PATH_HOST}:/var/www
+            - ./postgres/conf/postgresql.conf:/etc/postgresql.conf
+        command: postgres -c config_file=/etc/postgresql.conf
+        working_dir: ${POSTGRESQL_WORKING_DIR}
     php:
         build: ./php
         #restart: always
@@ -36,6 +49,7 @@ services:
             - mysql
             - redis
             - elasticsearch
+            - postgres
         working_dir: ${PHP_WORKING_DIR}
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -44,6 +58,25 @@ services:
             - "8306:80"
         links:
             - mysql:db
+    phppgadmin:
+        image: dockage/phppgadmin:latest
+        #restart: always
+        ports:
+            - "8432:80"
+        environment:
+            - PHP_PG_ADMIN_SERVER_HOST=postgres
+        links:
+            - postgres
+    adminer:
+        image: adminer
+        #restart: always
+        ports:
+            - 8080:8080
+        links:
+            - mysql
+            - postgres
+        environment:
+            - ADMINER_DEFAULT_SERVER=postgres
     composer:
         image: composer:latest
         volumes:
@@ -56,8 +89,11 @@ services:
         ports:
             - "4200:4200"
             - "8000:8000"
+            - "6001:6001"
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
+        links:
+            - redis
         working_dir: ${NODE_WORKING_DIR}
         tty: true
         #command: bash -c "npm install --force && npm run prod"
