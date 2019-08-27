@@ -24,7 +24,9 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
             - ${MYSQL_DATA_VOLUMES}:/var/lib/mysql
-        command: --max_allowed_packet=256M
+            - ${APP_CODE_PATH_HOST}:/var/www
+        command: --max_allowed_packet=256M --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4
+        working_dir: ${MYSQL_WORKING_DIR}
     postgres:
         image: postgres:9.2
         #restart: always
@@ -45,6 +47,8 @@ services:
             - ${APP_CODE_PATH_HOST}:/var/www
         environment:
             - SITE_ENVIRONMENT=dev
+            - APP_ENV=dev
+            - APP_DEBUG=1
         links:
             - mysql
             - redis
@@ -52,7 +56,7 @@ services:
             - postgres
         working_dir: ${PHP_WORKING_DIR}
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
         #restart: always
         ports:
             - "8306:80"
@@ -84,7 +88,7 @@ services:
         working_dir: ${COMPOSER_WORKING_DIR}
         #command: composer install
     node:
-        image: node:8
+        image: node:8-stretch
         #restart: always
         ports:
             - "4200:4200"
