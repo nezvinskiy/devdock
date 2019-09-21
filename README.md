@@ -25,6 +25,7 @@ Docker for development:
 ## Apply permissions to the log folder
 
     $ sudo chmod -R 777 ./nginx/log
+    $ sudo chmod -R 777 ./data
 
 ## Directory structure
 
@@ -37,6 +38,10 @@ Docker for development:
             - log
             - ssl
         - php
+        - data
+            - elasticsearch
+            - mysql
+            - postgresql
     - www
         - project1.loc
             - public
@@ -62,7 +67,7 @@ Docker for development:
     http://localhost:8025/
 
 ## ElasticSearch. Open your browser and visit the localhost on port 9201
-    http://localhost:9201/
+    http://localhost:9200/
 
 ## Open your browser and visit the project1.loc and etc.
 
