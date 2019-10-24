@@ -47,8 +47,6 @@ services:
             - ${APP_CODE_PATH_HOST}:/var/www
         environment:
             - SITE_ENVIRONMENT=dev
-            - APP_ENV=dev
-            - APP_DEBUG=1
         links:
             - mysql
             - redis
@@ -88,7 +86,7 @@ services:
         working_dir: ${COMPOSER_WORKING_DIR}
         #command: composer install
     node:
-        image: node:8-stretch
+        image: node:10-stretch
         #restart: always
         ports:
             - "4200:4200"

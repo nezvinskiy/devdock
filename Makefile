@@ -15,5 +15,8 @@ devdock-build: memory
 devdock-stop:
 	docker-compose stop
 
+devdock-pull:
+	docker-compose pull
+
 memory:
 	sudo sysctl -w vm.max_map_count=262144
