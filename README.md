@@ -2,8 +2,11 @@
 Docker for development:
 - nginx
 - mysql
+- postgresql
 - php
 - phpmyadmin
+- phppgadmin
+- adminer
 - composer
 - nodejs/npm
 - mailhog
@@ -61,6 +64,14 @@ Docker for development:
 ## phpMyAdmin. Open your browser and visit the localhost on port 8306
 
     http://localhost:8306/
+    
+## phpPgAdmin. Open your browser and visit the localhost on port 8432
+
+    http://localhost:8432/
+    
+## Adminer. Open your browser and visit the localhost on port 8080
+
+    http://localhost:8080/
 
 ## MailHog. Open your browser and visit the localhost on port 8025
 
