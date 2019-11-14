@@ -1,5 +1,7 @@
 # make devdock-...
 
+init: devdock-stop devdock-pull devdock-build
+
 devdock-ps:
 	docker-compose ps
 
@@ -11,6 +13,9 @@ devdock-up: memory
 
 devdock-build: memory
 	docker-compose up --build -d
+
+devdock-pull:
+	docker-compose pull
 
 devdock-stop:
 	docker-compose stop
