@@ -61,6 +61,10 @@ Docker for development:
     127.0.0.1   project3.loc
     ...
 
+## Dashboard. Open your browser and visit the localhost
+
+    http://localhost/
+
 ## phpMyAdmin. Open your browser and visit the localhost on port 8306
 
     http://localhost:8306/

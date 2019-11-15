@@ -4,67 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Devdock</title>
+    <title>Dashboard</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
             font-size: 1rem;
         }
+
         h1 {
             font-size: 2rem;
             margin-bottom: 35px;
         }
+
         ul > li {
             font-size: 1.5rem;
             margin-bottom: 15px;
         }
-        a:hover {
+
+        a {
+            color: blue;
             text-decoration: none;
         }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
         a:hover,
         a:visited {
             color: blue;
         }
+
         .content {
             padding: 25px;
+        }
+
+        .footer {
+            padding: 25px 0;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div>
-            <h1>Devdock</h1>
-        </div>
-        <div>
-            <ul>
-                <li>
-                    <a target="_blank" href="http://localhost:8306/">
-                        phpMyAdmin
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="http://localhost:8432/">
-                        phpPgAdmin
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="http://localhost:8080/">
-                        Adminer
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="http://localhost:8025/">
-                        MailHog
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="http://localhost:9200/">
-                        ElasticSearch
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div class="content">
+    <div>
+        <h1>Dashboard</h1>
     </div>
+    <div>
+        <ul>
+            <li>
+                <a target="_blank" href="http://localhost:8306/">
+                    phpMyAdmin
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://localhost:8432/">
+                    phpPgAdmin
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://localhost:8080/">
+                    Adminer
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://localhost:8025/">
+                    MailHog
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="http://localhost:9200/">
+                    ElasticSearch
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        2019 Devdock
+    </div>
+</div>
 </body>
 </html>
