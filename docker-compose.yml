@@ -16,7 +16,7 @@ services:
         links:
             - php
     mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         #restart: always
         ports:
             - "1306:3306"
@@ -25,7 +25,7 @@ services:
         volumes:
             - ${MYSQL_DATA_VOLUMES}:/var/lib/mysql
             - ${APP_CODE_PATH_HOST}:/var/www
-        command: --max_allowed_packet=256M --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4
+        command: --max_allowed_packet=256M --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4 --default-authentication-plugin=mysql_native_password
         working_dir: ${MYSQL_WORKING_DIR}
     postgres:
         image: postgres:9.2
