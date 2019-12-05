@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-stretch
+FROM php:7.3-fpm-stretch
 
 RUN apt-get update && apt-get install -y \
         curl \
@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         libxml2-dev \
         libpq-dev \
+        libzip-dev \
         zlib1g-dev \
         g++ \
         unzip \
@@ -27,7 +28,7 @@ RUN rm -rf /var/lib/apt/lists/* && apt update
 
 # ICU - intl requirements for Symfony
 # Debian is out of date, and Symfony expects the latest - so build from source, unless a better alternative exists(?)
-RUN curl -sS -o /tmp/icu.tar.gz -L http://download.icu-project.org/files/icu4c/64.2/icu4c-64_2-src.tgz \
+RUN curl -sS -o /tmp/icu.tar.gz -L https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz \
     && tar -zxf /tmp/icu.tar.gz -C /tmp \
     && cd /tmp/icu/source \
     && ./configure --prefix=/usr/local \
