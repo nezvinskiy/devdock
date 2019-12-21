@@ -49,9 +49,6 @@ RUN pecl install imagick && docker-php-ext-enable imagick
 RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
-
 RUN docker-php-ext-install opcache
 
 RUN docker-php-ext-install pcntl
@@ -72,8 +69,6 @@ RUN mkdir -p /usr/local/etc/php/extra/ \
 
 ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
-COPY xdebug.ini /usr/local/etc/php/conf.d/
-
 # Install Composer
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -83,6 +78,10 @@ RUN curl -sS https://getcomposer.org/installer | \
     # && composer global require laravel/envoy --no-progress --no-suggest \
     && rm -rf /root/.composer/cache/* \
     && composer --version
+
+# XDebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY xdebug.ini /usr/local/etc/php/conf.d/
 
 WORKDIR /var/www
 
