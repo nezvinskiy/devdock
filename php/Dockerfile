@@ -40,24 +40,27 @@ RUN docker-php-ext-configure intl --with-icu-dir=/usr/local \
 
 RUN docker-php-ext-install xsl
 RUN docker-php-ext-install soap
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install xmlrpc
+RUN docker-php-ext-install xml
+RUN docker-php-ext-install exif
 
 RUN apt-get update && apt-get install -y \
         libmagickwand-dev --no-install-recommends
 
-RUN pecl install imagick && docker-php-ext-enable imagick
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
 
 RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
-RUN docker-php-ext-install opcache
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
-RUN docker-php-ext-install pcntl
-
-RUN docker-php-ext-install bcmath
-
-RUN docker-php-ext-install xmlrpc
-RUN docker-php-ext-install xml
-RUN docker-php-ext-install exif
+RUN pecl install redis \
+    && docker-php-ext-enable redis
 
 RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
     && chmod +x /usr/local/bin/mhsendmail
