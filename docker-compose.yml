@@ -40,6 +40,17 @@ services:
             - ./postgres/conf/postgresql.conf:/etc/postgresql.conf
         command: postgres -c config_file=/etc/postgresql.conf
         working_dir: ${POSTGRESQL_WORKING_DIR}
+    mongo:
+        image: mongo:latest
+        #restart: always
+        ports:
+            - "27017-27019:27017-27019"
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+        volumes:
+            - ${MONGO_DATA_VOLUMES}:/data/db
+        working_dir: ${MONGO_WORKING_DIR}
     php:
         build: ./php
         #restart: always
