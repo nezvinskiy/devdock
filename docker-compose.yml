@@ -19,7 +19,7 @@ services:
         image: mysql:8.0
         #restart: always
         ports:
-            - "1306:3306"
+            - "127.0.0.1:1306:3306"
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         volumes:
@@ -31,7 +31,7 @@ services:
         image: postgres:9.2
         #restart: always
         ports:
-            - "5432:5432"
+            - "127.0.0.1:5432:5432"
         environment:
             - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
         volumes:
@@ -44,7 +44,7 @@ services:
         image: mongo:latest
         #restart: always
         ports:
-            - "27017-27019:27017-27019"
+            - "127.0.0.1:27017-27019:27017-27019"
         environment:
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
@@ -68,14 +68,14 @@ services:
         image: phpmyadmin/phpmyadmin:latest
         #restart: always
         ports:
-            - "8306:80"
+            - "127.0.0.1:8306:80"
         links:
             - mysql:db
     phppgadmin:
         image: dockage/phppgadmin:latest
         #restart: always
         ports:
-            - "8432:80"
+            - "127.0.0.1:8432:80"
         environment:
             - PHP_PG_ADMIN_SERVER_HOST=postgres
         links:
@@ -84,7 +84,7 @@ services:
         image: adminer
         #restart: always
         ports:
-            - 8080:8080
+            - "127.0.0.1:8080:8080"
         links:
             - mysql
             - postgres
@@ -100,9 +100,9 @@ services:
         image: node:10-stretch
         #restart: always
         ports:
-            - "4200:4200"
-            - "8000:8000"
-            - "6001:6001"
+            - "127.0.0.1:4200:4200"
+            - "127.0.0.1:8000:8000"
+            - "127.0.0.1:6001:6001"
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
         links:
@@ -114,13 +114,13 @@ services:
         image: mailhog/mailhog:latest
         #restart: always
         ports:
-            - "1025:1025"
-            - "8025:8025"
+            - "127.0.0.1:1025:1025"
+            - "127.0.0.1:8025:8025"
     redis:
         image: redis:3.0
         #restart: always
         ports:
-            - "6379:6379"
+            - "127.0.0.1:6379:6379"
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
         #restart: always
@@ -136,5 +136,5 @@ services:
         volumes:
             - ${ELASTICSEARCH_DATA_VOLUMES}:/usr/share/elasticsearch/data
         ports:
-            - 9200:9200
-            - 9300:9300
+            - "127.0.0.1:9200:9200"
+            - "127.0.0.1:9300:9300"
