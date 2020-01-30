@@ -97,16 +97,18 @@ services:
         working_dir: ${COMPOSER_WORKING_DIR}
         #command: composer install
     node:
-        image: node:10-stretch
+        image: node:12-stretch
         #restart: always
         ports:
             - "127.0.0.1:4200:4200"
             - "127.0.0.1:8000:8000"
             - "127.0.0.1:6001:6001"
+            - "127.0.0.1:3000:3000"
         volumes:
             - ${APP_CODE_PATH_HOST}:/var/www
         links:
             - redis
+            - mongo
         working_dir: ${NODE_WORKING_DIR}
         tty: true
         #command: bash -c "npm install --force && npm run prod"
