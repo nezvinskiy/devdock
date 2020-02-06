@@ -81,7 +81,7 @@ services:
         links:
             - postgres
     adminer:
-        image: adminer
+        image: adminer:latest
         #restart: always
         ports:
             - "127.0.0.1:8080:8080"
@@ -119,10 +119,20 @@ services:
             - "127.0.0.1:1025:1025"
             - "127.0.0.1:8025:8025"
     redis:
-        image: redis:3.0
+        image: redis:latest
         #restart: always
         ports:
             - "127.0.0.1:6379:6379"
+    phpredisadmin:
+        image: erikdubbelboer/phpredisadmin
+        #restart: always
+        ports:
+            - "127.0.0.1:8379:80"
+        links:
+            - redis
+        environment:
+            - REDIS_1_HOST=redis
+            - REDIS_1_PORT=6379
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
         #restart: always
