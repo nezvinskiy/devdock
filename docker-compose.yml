@@ -63,6 +63,7 @@ services:
             - redis
             - elasticsearch
             - postgres
+            - mongo
         working_dir: ${PHP_WORKING_DIR}
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:latest
@@ -88,6 +89,7 @@ services:
         links:
             - mysql
             - postgres
+            - mongo
         environment:
             - ADMINER_DEFAULT_SERVER=postgres
     composer:
