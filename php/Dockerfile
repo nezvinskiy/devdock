@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-stretch
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y \
         curl \
@@ -10,32 +10,37 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
         libmcrypt-dev \
         libpng-dev \
+        libwebp-dev \
         libxml2-dev \
         libpq-dev \
+        libonig-dev \
         libzip-dev \
         zlib1g-dev \
         g++ \
         unzip \
-        mysql-client \
+        default-mysql-client \
     \
     && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    # php <= 7.3
+    # && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ \
+    # php >= 7.4
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd
 
 RUN rm -rf /var/lib/apt/lists/* && apt update
 
 # ICU - intl requirements for Symfony
 # Debian is out of date, and Symfony expects the latest - so build from source, unless a better alternative exists(?)
-RUN curl -sS -o /tmp/icu.tar.gz -L https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz \
+RUN curl -sS -o /tmp/icu.tar.gz -L https://github.com/unicode-org/icu/releases/download/release-66-1/icu4c-66_1-src.tgz \
     && tar -zxf /tmp/icu.tar.gz -C /tmp \
     && cd /tmp/icu/source \
     && ./configure --prefix=/usr/local \
     && make \
     && make install
 
-RUN docker-php-ext-configure intl --with-icu-dir=/usr/local \
+RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl
 
 RUN docker-php-ext-install xsl
@@ -85,6 +90,8 @@ RUN curl -sS https://getcomposer.org/installer | \
 # XDebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 COPY xdebug.ini /usr/local/etc/php/conf.d/
+
+RUN apt-get install -y jpegoptim optipng pngquant gifsicle
 
 WORKDIR /var/www
 

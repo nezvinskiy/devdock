@@ -27,6 +27,17 @@ services:
             - ${APP_CODE_PATH_HOST}:/var/www
         command: --max_allowed_packet=256M --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4 --default-authentication-plugin=mysql_native_password
         working_dir: ${MYSQL_WORKING_DIR}
+    mariadb:
+        image: mariadb:10.5
+        #restart: always
+        ports:
+            - "127.0.0.1:2306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+        volumes:
+            - ${MARIADB_DATA_VOLUMES}:/var/lib/mysql
+            - ${APP_CODE_PATH_HOST}:/var/www
+        working_dir: ${MARIADB_WORKING_DIR}
     postgres:
         image: postgres:9.2
         #restart: always
@@ -72,6 +83,9 @@ services:
             - "127.0.0.1:8306:80"
         links:
             - mysql:db
+        volumes:
+            - ./phpmyadmin/php.ini:/usr/local/etc/php/conf.d/phpmyadmin-php.ini
+            - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     phppgadmin:
         image: dockage/phppgadmin:latest
         #restart: always
@@ -88,6 +102,7 @@ services:
             - "127.0.0.1:8080:8080"
         links:
             - mysql
+            - mariadb
             - postgres
             - mongo
         environment:
